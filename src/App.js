@@ -181,6 +181,19 @@ function App() {
     setCount(0)
   }
 
+  const speedHandler = e => {
+    e.preventDefault()
+
+    const name = e.target.name
+
+    if (name === "speedUp"){
+      setSpeed(speed - 100)
+    }
+    if (name === "speedDown"){
+      setSpeed(speed + 100)
+    }
+  }
+
   return (
     <div className="App">
       <Nav />
@@ -254,6 +267,8 @@ function App() {
         {running ? "Pause" : "Clear"}
       </button>
       <button onClick={resetGrid}>Reset</button>
+      <button onClick={speedHandler} name="speedDown">Speed Down</button>
+      <button onClick={speedHandler} name="speedUp">Speed Up</button>
 
       <div className="count">{count}</div>
       <div className="cellStyleContainer">
