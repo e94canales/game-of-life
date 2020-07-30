@@ -7,6 +7,9 @@ function App() {
   const [grid, setGrid] = useState([]);
   const [running, setRunning] = useState(false);
   const [count, setCount] = useState(0);
+  const [speed, setSpeed] = useState(800)
+  const [initialGrid, setInitialGrid] = useState([])
+  const [prevGrid, setPrevGrid] = useState([])
 
   let initGridStyle = {
     gridTemplateColumns: `repeat(${size.columns}, 15px)`,
@@ -74,7 +77,7 @@ function App() {
     [-1, -1],
   ];
 
-  const run = (currentGrid, prevCount) => {
+  const run = (currentGrid, prevCount, nudge = false) => {
     let inactiveNewGrid = makeDeepCopy(currentGrid);
 
     if (!runningRef.current) {
@@ -107,9 +110,16 @@ function App() {
       });
     });
 
+    setPrevGrid(currentGrid)
     setGrid(inactiveNewGrid);
     setCount(prevCount + 1);
-    setTimeout(() => run(inactiveNewGrid, prevCount + 1), 100);
+
+    if (nudge){
+      setRunning(false)
+      runningRef.current = false;
+    }
+    setTimeout(() => run(inactiveNewGrid, prevCount + 1), speed);
+    
   };
 
   const gridBg = (e) => {
@@ -125,17 +135,6 @@ function App() {
     const name = e.target.name;
     const value = e.target.value;
 
-    if (name === "cellsize") {
-      setCellStyle({
-        ...cellStyle,
-        width: `${value}`,
-        height: `${value}`,
-      });
-      setGridStyle({
-        ...gridStyle,
-        gridTemplateColumns: `repeat(${size.columns}, ${value})`,
-      });
-    }
     if (name === "cellactive") {
       setCellStyle({
         ...cellStyle,
@@ -150,13 +149,43 @@ function App() {
         bordercolor: `${value}`,
       });
     }
-  };
+    if (name === "incrementSize"){
+      setCellStyle({
+        ...cellStyle,
+        width: `${parseInt(cellStyle.width) + 1}px`,
+        height: `${parseInt(cellStyle.height) + 1}px`,
+      });
+      setGridStyle({
+        ...gridStyle,
+        gridTemplateColumns: `repeat(${size.columns}, ${cellStyle.width})`,
+      });
+    }
+
+    if (name === "decrementSize"){
+      setCellStyle({
+        ...cellStyle,
+        width: `${parseInt(cellStyle.width) - 1}px`,
+        height: `${parseInt(cellStyle.height) - 1}px`,
+      });
+      setGridStyle({
+        ...gridStyle,
+        gridTemplateColumns: `repeat(${size.columns}, ${cellStyle.width})`,
+      });
+    }
+  }
+
+  const resetGrid = e => {
+    e.preventDefault()
+
+    setGrid(initialGrid)
+    setCount(0)
+  }
 
   return (
     <div className="App">
       <Nav />
       <div className="gridContainer">
-        <div className="grid" style={gridStyle}>
+        <div className="grid" style={gridStyle} draggable={true}>
           {grid.map((e, i) => {
             return e.map((r, j) => {
               return (
@@ -179,6 +208,7 @@ function App() {
       </div>
       <button
         onClick={() => {
+          setInitialGrid(grid)
           setRunning(true);
           runningRef.current = true;
           run(grid, count);
@@ -186,6 +216,21 @@ function App() {
       >
         Start
       </button>
+
+      <button onClick={() => {
+        if (grid === prevGrid){
+          alert("You can only go back once!")
+        }
+        else {
+          setGrid(prevGrid)
+          setCount(count - 1)
+        }
+      }}>Prev</button>
+      <button onClick={() => {
+        setRunning(true);
+        runningRef.current = true;
+        run(grid, count, true)
+      }}>Next</button>
 
       <button
         onClick={() => {
@@ -208,6 +253,7 @@ function App() {
       >
         {running ? "Pause" : "Clear"}
       </button>
+      <button onClick={resetGrid}>Reset</button>
 
       <div className="count">{count}</div>
       <div className="cellStyleContainer">
@@ -215,13 +261,12 @@ function App() {
           Cell Size:
           <input
             type="text"
-            name="cellsize"
             value={cellStyle.width}
-            onChange={cellStyleHandler}
             readOnly
+            disabled={true}
           ></input>
-          <button>+</button>
-          <button>-</button>
+          <button onClick={cellStyleHandler} name="incrementSize">+</button>
+          <button onClick={cellStyleHandler} name="decrementSize">-</button>
         </div>
         <input onChange={gridBg} type="color" name="grid" />
         <input
