@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Julius+Sans+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Julius+Sans+One&family=Orbitron&family=Montserrat&display=swap');
 
 * {
   box-sizing: border-box;
@@ -12,8 +12,9 @@
   .gridContainer {
     height: 80vh;
     overflow: scroll;
-    // display: flex;
-    // justify-content: center;
+    display: flex;
+    justify-content: center;
+    background-color: rgb(12, 12, 12);
      
     .grid {
       display: grid;

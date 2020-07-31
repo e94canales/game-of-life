@@ -1,0 +1,115 @@
+nav {
+    .modal {
+        position: absolute;
+        background-color: rgba(0, 0, 0, 0.753);
+        z-index: 9999;
+        width: 100%;
+        height: 90%;
+        display: flex;
+        justify-content: center;
+
+        .modalContents {
+            width: 50%;
+            height: 50%;
+            background-color: rgba(255, 255, 255, 0.788);
+            border-radius: 15px;
+            margin-top: 5%;
+            font-family: "Montserrat";
+            text-align: center;
+            padding: 3%;
+            border: 1px solid white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+
+            .closeModal {
+                position: absolute;
+                font-size: 2rem;
+                color: rgb(167, 18, 18);
+                right: 3%;
+                top: 4%;
+
+                &:hover {
+                    cursor: pointer;
+                    color: rgb(206, 25, 25);
+                }
+            }
+
+            h3 {
+                font-size: 2.4rem;
+                margin-bottom: 3%;
+            }
+            .rules {
+                font-size: 1.5rem;
+                p {
+                    text-align: left;
+                    margin: 2% 0;
+                }
+            }
+            .okay {
+                background-color: rgb(36, 160, 87);
+                width: 20%;
+                padding: 2%;
+                margin-top: 5%;
+                border-radius: 15px;
+                color: white;
+
+                &:hover {
+                    cursor: pointer;
+                    background-color: rgb(39, 180, 98);
+                }
+            }
+        }
+    }
+    .content {
+        position: relative;
+        background-color: rgba(0, 0, 0, 0.63);
+        height: 10vh;
+        display: flex;
+
+        h1 {
+            color: rgb(226, 236, 226);
+            font-family: "Julius Sans One";
+            font-size: 2.8rem;
+            align-self: center;
+            padding: 2%;
+            width: 25%;
+        }
+
+        &::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            z-index: -1;
+
+            display: block;
+            background-image: url("/sky.jpg");
+            background-size:cover;
+            width: 100%;
+            height: 100%;
+        }
+
+        .links {
+            display: flex;
+            width: 75%;
+            color: white;
+            justify-content: flex-end;
+            font-family: "Montserrat";
+
+            .link {
+                align-self: center;
+                margin: 5%;
+                font-size: 1.5rem;
+
+                &:hover {
+                    color: rgb(223, 67, 67);
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+    
+    
+}

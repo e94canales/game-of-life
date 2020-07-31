@@ -1,0 +1,153 @@
+.controls {
+    height: 9h;
+    display: flex;
+    justify-content: center;
+    background-color: rgb(14, 14, 14);
+    color: white;
+    font-family: "Montserrat";
+
+    .startContainer{
+        width: 100px;
+        height: 100px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .start {
+            width: 50%;
+
+            &:hover {
+                cursor: pointer;
+                width: 55%;
+            }
+        }
+    }
+    .prev, .next, .clear, .reset, .down, .up {
+        align-self: center;
+        font-size: 2rem;
+        outline: none;
+        background-color: inherit;
+        border: none;
+        padding: 0;
+        cursor: pointer;
+        background: none;
+        color: white;
+
+        &:disabled{
+            color: grey;
+            cursor: not-allowed;
+
+            &:hover {
+                filter: none;
+            }
+        }
+        &:hover {
+            filter: drop-shadow(0 0 10px rgb(40, 173, 40));
+        }
+    }
+    .clear {
+        width: 4%;
+        margin-right: 2%;
+    }
+    .reset {
+        width: 6%;
+    }
+    .up {
+        width: 4%;
+    }
+    .count {
+        font-family: "Orbitron";
+        font-size: 2rem;
+        align-self: center;
+        width: 6%;
+        div {
+            width: 100%;
+            text-align: center;
+        }
+    }
+
+    .cellStyleContainer {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 13%;
+        margin-left: 4%;
+
+        div {
+            display: flex;
+
+            input {
+                cursor: pointer;
+            }
+
+            .colorText {
+                font-size: .9rem;
+                margin-left: 5%;
+                align-self: center;
+            }
+        }
+        
+    }
+
+    .sizeContainer{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .size {
+            width: 15%;
+            margin-left: 5%;
+        }
+        .sizeBtn {
+            width: 10%;
+            outline: none;
+            background-color: inherit;
+            border: 1px solid white;
+            padding: 0;
+            cursor: pointer;
+            background: none;
+            color: white;
+            border-radius: 8x;
+
+            &:hover {
+                background-color: white;
+                color: black;
+            }
+
+            &:disabled{
+                color: grey;
+                cursor: not-allowed;
+    
+                &:hover {
+                    background-color: inherit;
+                    color: grey;
+                }
+            }
+        }
+    }
+    .dropDown {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        margin-left: 3%;
+
+        select {
+            padding: 4%;
+            outline: none;
+            cursor: pointer;
+            border-radius: 15px;
+
+            &:disabled{
+                color: grey;
+                cursor: not-allowed;
+    
+                &:hover {
+                    filter: none;
+                }
+            }
+            &:hover {
+                filter: drop-shadow(0 1px 5px rgb(40, 173, 40));
+            }
+        }
+    }
+}
